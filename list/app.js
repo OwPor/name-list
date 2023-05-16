@@ -91,7 +91,7 @@ firebase.auth().onAuthStateChanged((user) => {
     });
   } else {
     console.log('User is not logged in');
-    window.location.href = 'owpor.github.io/login/login.html'; // Redirect to the login page
+    window.location.href = 'https://owpor.github.io/name-list/login'; // Redirect to the login page
   }
 });
 
