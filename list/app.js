@@ -24,8 +24,9 @@ const deleteAllButton = document.getElementById('delete-all-button');
 logoutButton.addEventListener('click', () => {
   firebase.auth().signOut()
     .then(() => {
-      console.log('User successfully logged out');
-      window.location.href = 'https://owpor.github.io/name-list/login'; // Redirect to the login page
+	  alert('User successfully logged out!');
+      console.log('User successfully logged out!');
+      window.location.href = 'login.html'; // Redirect to the login page
     })
     .catch((error) => {
       console.error('Error logging out user: ', error);
@@ -45,8 +46,8 @@ nameForm.addEventListener('submit', async (e) => {
       // Clear input field
       nameInput.value = '';
     } else {
-	  alert("Name already exists in Firestore");
-      console.error("Name already exists in Firestore");
+      alert("Name already exists in Firestore!");
+      console.error('Name already exists in Firestore!', error);
     }
   }
 });
@@ -54,7 +55,7 @@ nameForm.addEventListener('submit', async (e) => {
 // Listen for Firestore updates
 firebase.auth().onAuthStateChanged((user) => {
   if (user) {
-    console.log('User is logged in');
+    console.log('User is logged in!');
     db.collection('names').orderBy('name').onSnapshot((snapshot) => {
       // Clear names list
       namesList.innerHTML = '';
@@ -65,14 +66,14 @@ firebase.auth().onAuthStateChanged((user) => {
           const li = document.createElement('li');
           const name = doc.data().name;
           const deleteButton = document.createElement('button');
-		  deleteButton.textContent = 'Delete';
-		  deleteButton.classList.add('delete-button');
+          deleteButton.textContent = 'Delete';
+          deleteButton.classList.add('delete-button');
           deleteButton.addEventListener('click', () => {
             const confirmDelete = confirm(`Are you sure you want to delete ${name}?`);
             if (confirmDelete) {
               db.collection('names').doc(doc.id).delete()
                 .then(() => {
-                  console.log(`Document with ID ${doc.id} successfully deleted`);
+                  console.log(`Document with ID ${doc.id} successfully deleted!`);
                 })
                 .catch((error) => {
                   console.error('Error deleting document: ', error);
@@ -90,8 +91,8 @@ firebase.auth().onAuthStateChanged((user) => {
       }
     });
   } else {
-    console.log('User is not logged in');
-    window.location.href = 'https://owpor.github.io/name-list/login'; // Redirect to the login page
+    console.log('User is not logged in!');
+    window.location.href = 'login.html'; // Redirect to the login page
   }
 });
 
@@ -114,11 +115,12 @@ deleteAllButton.addEventListener('click', async () => {
 // Listen for copy all button click
 copyAllButton.addEventListener('click', () => {
   const text = Array.from(namesList.children)
-    .map((li, index) => `${index + 1}. ${li.textContent}`)
+    .map((li, index) => `${index + 1}. ${li.textContent.replace('Delete', '')}`)
     .join('\n');
   navigator.clipboard.writeText(text)
     .then(() => {
-      console.log('Text copied to clipboard');
+	  alert('Text copied to clipboard!');
+      console.log('Text copied to clipboard!');
     })
     .catch((error) => {
       console.error('Error copying text: ', error);
