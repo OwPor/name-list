@@ -26,7 +26,7 @@ logoutButton.addEventListener('click', () => {
     .then(() => {
 	  alert('User successfully logged out!');
       console.log('User successfully logged out!');
-      window.location.href = 'login.html'; // Redirect to the login page
+      window.location.href = 'https://owpor.github.io/name-list/login'; // Redirect to the login page
     })
     .catch((error) => {
       console.error('Error logging out user: ', error);
@@ -92,7 +92,7 @@ firebase.auth().onAuthStateChanged((user) => {
     });
   } else {
     console.log('User is not logged in!');
-    window.location.href = 'login.html'; // Redirect to the login page
+    window.location.href = 'https://owpor.github.io/name-list/login'; // Redirect to the login page
   }
 });
 
